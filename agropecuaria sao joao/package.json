@@ -1,0 +1,8 @@
+{
+  "name": "agropecuaria-sao-joao",
+  "private": true,
+  "description": "Site da Agropecuária São João com painel admin de produtos",
+  "dependencies": {
+    "@vercel/blob": "^2.8.0"
+  }
+}

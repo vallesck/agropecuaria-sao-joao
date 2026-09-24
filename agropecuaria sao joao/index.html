@@ -257,180 +257,13 @@
                     <p class="text-slate-600 text-sm mt-1">Escolha o produto desejado e clique para pedir diretamente no nosso WhatsApp.</p>
                 </div>
                 
-                <!-- Category Filter Buttons -->
-                <div class="flex flex-wrap gap-2 mt-4 md:mt-0" id="filter-container">
-                    <button data-filter="all" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-agro-600 text-white shadow-sm transition-all">Todos</button>
-                    <button data-filter="racoes" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Rações</button>
-                    <button data-filter="petiscos" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Petiscos</button>
-                    <button data-filter="medicamentos" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Medicamentos</button>
-                    <button data-filter="acessorios" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Acessórios</button>
-                    <button data-filter="vacinas" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Vacinas & Cuidados</button>
-                </div>
+                <!-- Category Filter Buttons (gerados a partir do painel admin) -->
+                <div class="flex flex-wrap gap-2 mt-4 md:mt-0" id="filter-container"></div>
             </div>
 
-            <!-- Products Grid -->
+            <!-- Products Grid (gerado a partir do painel admin) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
-                
-                <!-- Product 1 -->
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="racoes">
-                    <div>
-                        <div class="relative h-48 bg-slate-200 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&q=80&w=600" alt="Ração Premium Cães Adultos" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Ração+Premium'">
-                            <span class="absolute top-3 left-3 bg-agro-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Rações</span>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-bold text-slate-900 text-lg">Ração Super Premium Cães 15kg</h4>
-                                <span class="text-agro-700 font-extrabold text-lg">R$ 149,90</span>
-                            </div>
-                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Alimento completo balanceado para cães adultos de todas as raças. Alta digestibilidade e saúde para o pelo.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="pedirWhatsApp('Ração Super Premium Cães 15kg', 'R$ 149,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pedir pelo WhatsApp</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="medicamentos">
-                    <div>
-                        <div class="relative h-48 bg-slate-200 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600" alt="Antipulgas e Carrapatos" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Antipulgas'">
-                            <span class="absolute top-3 left-3 bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Medicamentos</span>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-bold text-slate-900 text-lg">Antipulgas & Carrapatos Tablet</h4>
-                                <span class="text-agro-700 font-extrabold text-lg">R$ 89,90</span>
-                            </div>
-                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Proteção rápida e prolongada contra pulgas e carrapatos. Eficácia comprovada por até 35 dias.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="pedirWhatsApp('Antipulgas & Carrapatos Tablet', 'R$ 89,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pedir pelo WhatsApp</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="racoes">
-                    <div>
-                        <div class="relative h-48 bg-slate-200 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&q=80&w=600" alt="Ração para Gatos Castrados" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Ração+Gatos'">
-                            <span class="absolute top-3 left-3 bg-agro-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Rações</span>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-bold text-slate-900 text-lg">Ração Gatos Castrados 10.1kg</h4>
-                                <span class="text-agro-700 font-extrabold text-lg">R$ 125,00</span>
-                            </div>
-                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Controle de peso e proteção do trato urinário específica para felinos castrados.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="pedirWhatsApp('Ração Gatos Castrados 10.1kg', 'R$ 125,00')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pedir pelo WhatsApp</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="acessorios">
-                    <div>
-                        <div class="relative h-48 bg-slate-200 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&q=80&w=600" alt="Coleira e Guia Resistente" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Acessórios'">
-                            <span class="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Acessórios</span>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-bold text-slate-900 text-lg">Kit Coleira & Guia Reforçada</h4>
-                                <span class="text-agro-700 font-extrabold text-lg">R$ 49,90</span>
-                            </div>
-                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Material resistente com costura reforçada e fecho de segurança para passeios seguros com seu cão.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="pedirWhatsApp('Kit Coleira & Guia Reforçada', 'R$ 49,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pedir pelo WhatsApp</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product 5 -->
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="medicamentos">
-                    <div>
-                        <div class="relative h-48 bg-slate-200 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&q=80&w=600" alt="Vitamina e Suplemento Animal" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Suplementos'">
-                            <span class="absolute top-3 left-3 bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Medicamentos</span>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-bold text-slate-900 text-lg">Suplemento Vitamínico Pet 250ml</h4>
-                                <span class="text-agro-700 font-extrabold text-lg">R$ 42,00</span>
-                            </div>
-                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Polivitamínico indicado para recuperação física, fortalecimento imunológico e brilho da pelagem.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="pedirWhatsApp('Suplemento Vitamínico Pet 250ml', 'R$ 42,00')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pedir pelo WhatsApp</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Product 6 -->
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="vacinas">
-                    <div>
-                        <div class="relative h-48 bg-slate-200 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600" alt="Vacinação Antirrábica e Múltipla" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Vacinas'">
-                            <span class="absolute top-3 left-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Vacinas & Cuidados</span>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-bold text-slate-900 text-lg">Aplicação de Vacina V10 / V8</h4>
-                                <span class="text-agro-700 font-extrabold text-lg">R$ 80,00</span>
-                            </div>
-                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Aplicação em clínica veterinária com emissão de carteirinha de vacinação e avaliação prévia.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="pedirWhatsApp('Aplicação de Vacina V10 / V8', 'R$ 80,00')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pedir pelo WhatsApp</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="petiscos">
-                    <div>
-                        <div class="relative h-48 bg-slate-200 overflow-hidden">
-                            <img src="https://i0.statig.com.br/bancodeimagens/1i/1d/45/1i1d454e2uchjj9nrx7imv83e.jpg" alt="Vacinação Antirrábica e Múltipla" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Vacinas'">
-                            <span class="absolute top-3 left-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Vacinas & Cuidados</span>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h4 class="font-bold text-slate-900 text-lg">Cookie Premier cães adultos</h4>
-                                <span class="text-agro-700 font-extrabold text-lg"> R$ 29,90</span>
-                            </div>
-                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Carne bovina: O preferido da maioria dos cães, muito usado em bifinhos e biscoitos crocantes.</p>
-                        </div>
-                    </div>
-                    <div class="p-6 pt-0">
-                        <button onclick="pedirWhatsApp('Cookie Premier cães adultos', 'R$ 29,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
-                            <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Pedir pelo WhatsApp</span>
-                        </button>
-                    </div>
-                </div>               
-
+                <div class="col-span-full text-center text-slate-400 py-16"><i class="fa-solid fa-circle-notch fa-spin text-2xl"></i></div>
             </div>
         </div>
     </section>
@@ -580,32 +413,80 @@
             window.open(url, '_blank');
         }
 
-        // Product Category Filter Logic
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const productCards = document.querySelectorAll('.product-card');
+        // Catalogo de produtos (cadastrados no painel /admin)
+        const productGrid = document.getElementById('product-grid');
+        const filterContainer = document.getElementById('filter-container');
+        const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const formatPrice = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        let catalog = { categories: [], products: [] };
+        let activeFilter = 'all';
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active classes
-                filterBtns.forEach(b => {
-                    b.classList.remove('bg-agro-600', 'text-white');
-                    b.classList.add('bg-white', 'text-slate-700');
-                });
-                // Add active to clicked
-                btn.classList.remove('bg-white', 'text-slate-700');
-                btn.classList.add('bg-agro-600', 'text-white');
+        function renderFilters() {
+            const used = new Set(catalog.products.map(p => p.category));
+            const buttons = [{ id: 'all', name: 'Todos' }, ...catalog.categories.filter(c => used.has(c.id))];
+            filterContainer.innerHTML = buttons.map(c => `
+                <button data-filter="${escapeHtml(c.id)}" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all ${c.id === activeFilter ? 'bg-agro-600 text-white shadow-sm' : 'bg-white text-slate-700 hover:bg-slate-200'}">${escapeHtml(c.name)}</button>
+            `).join('');
+        }
 
-                const filter = btn.getAttribute('data-filter');
-
-                productCards.forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
+        function renderProducts() {
+            const list = catalog.products.filter(p => activeFilter === 'all' || p.category === activeFilter);
+            if (!list.length) {
+                productGrid.innerHTML = '<p class="col-span-full text-center text-slate-500 py-16">Nenhum produto disponível no momento. Fale com a gente pelo WhatsApp!</p>';
+                return;
+            }
+            productGrid.innerHTML = list.map((p, i) => {
+                const cat = catalog.categories.find(c => c.id === p.category);
+                const finalPrice = p.promoPrice != null ? p.promoPrice : p.price;
+                const placeholder = 'https://placehold.co/600x400/e2e8f0/475569?text=' + encodeURIComponent(cat ? cat.name : 'Produto');
+                return `
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="${escapeHtml(p.category)}">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="${escapeHtml(p.image || placeholder)}" alt="${escapeHtml(p.name)}" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 ${p.available ? '' : 'grayscale opacity-70'}" onerror="this.onerror=null;this.src='${placeholder}'">
+                            ${cat ? `<span class="absolute top-3 left-3 text-white text-xs font-bold px-3 py-1 rounded-full shadow" style="background:${escapeHtml(cat.color)}">${escapeHtml(cat.name)}</span>` : ''}
+                            ${!p.available ? '<span class="absolute top-3 right-3 bg-slate-900/85 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Esgotado</span>'
+                                : p.promoPrice != null ? '<span class="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Promoção</span>' : ''}
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start gap-3 mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">${escapeHtml(p.name)}</h4>
+                                <div class="text-right shrink-0">
+                                    ${p.promoPrice != null ? `<span class="block text-xs text-slate-400 line-through">${formatPrice(p.price)}</span>` : ''}
+                                    <span class="text-agro-700 font-extrabold text-lg whitespace-nowrap">${formatPrice(finalPrice)}</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">${escapeHtml(p.description)}</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button data-order="${i}" class="w-full flex items-center justify-center gap-2 ${p.available ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20' : 'bg-slate-500 hover:bg-slate-600'} text-white font-semibold py-3 rounded-xl shadow-md transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>${p.available ? 'Pedir pelo WhatsApp' : 'Consultar disponibilidade'}</span>
+                        </button>
+                    </div>
+                </div>`;
+            }).join('');
+            productGrid.querySelectorAll('[data-order]').forEach(btn => {
+                const p = list[btn.dataset.order];
+                btn.addEventListener('click', () => pedirWhatsApp(p.name, formatPrice(p.promoPrice != null ? p.promoPrice : p.price)));
             });
+        }
+
+        filterContainer.addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-btn');
+            if (!btn) return;
+            activeFilter = btn.dataset.filter;
+            renderFilters();
+            renderProducts();
         });
+
+        fetch('/api/catalog')
+            .then(res => { if (!res.ok) throw new Error(); return res.json(); })
+            .then(data => { catalog = data; renderFilters(); renderProducts(); })
+            .catch(() => {
+                productGrid.innerHTML = '<p class="col-span-full text-center text-slate-500 py-16">Não foi possível carregar os produtos agora. Chame a gente no WhatsApp: (17) 99749-1516</p>';
+            });
     </script>
 </body>
 </html>

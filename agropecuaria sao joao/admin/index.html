@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Painel Admin | Agropecuária São João</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        agro: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tab-btn.active { background: #16a34a; color: #fff; }
+        .switch { position: relative; width: 38px; height: 22px; border-radius: 999px; background: #cbd5e1; transition: background .2s; flex-shrink: 0; }
+        .switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 999px; background: #fff; transition: transform .2s; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+        .switch.on { background: #16a34a; }
+        .switch.on::after { transform: translateX(16px); }
+        .field { width: 100%; border: 1px solid #e2e8f0; border-radius: .75rem; padding: .65rem .85rem; font-size: .875rem; background: #fff; outline: none; }
+        .field:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,.15); }
+        .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 999px; animation: spin .7s linear infinite; display: inline-block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
+
+    <!-- Login -->
+    <div id="login-view" class="hidden min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-agro-900 via-agro-800 to-slate-900">
+        <form id="login-form" class="w-full max-w-sm bg-white rounded-3xl shadow-2xl p-8 space-y-5">
+            <div class="flex flex-col items-center text-center space-y-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-agro-700 to-agro-500 flex items-center justify-center text-white shadow-md">
+                    <i class="fa-solid fa-paw text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-xl text-slate-900">Painel Admin</h1>
+                    <p class="text-sm text-slate-500">Agropecuária São João</p>
+                </div>
+            </div>
+            <div>
+                <label for="login-password" class="block text-xs font-semibold text-slate-600 mb-1.5">Senha</label>
+                <input id="login-password" type="password" class="field" autocomplete="current-password" required autofocus>
+            </div>
+            <p id="login-error" class="hidden text-sm text-red-600 bg-red-50 rounded-xl px-3 py-2"></p>
+            <button type="submit" class="w-full bg-agro-600 hover:bg-agro-700 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                <span>Entrar</span>
+            </button>
+            <a href="/" class="block text-center text-xs text-slate-500 hover:text-agro-700"><i class="fa-solid fa-arrow-left mr-1"></i> Voltar ao site</a>
+        </form>
+    </div>
+
+    <!-- App -->
+    <div id="app-view" class="hidden">
+        <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200">
+            <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-agro-700 to-agro-500 flex items-center justify-center text-white shrink-0">
+                        <i class="fa-solid fa-paw"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <p class="font-bold text-slate-900 truncate leading-tight">Painel Admin</p>
+                        <p class="text-xs text-agro-600 font-medium truncate">Agropecuária São João</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="/#produtos" target="_blank" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-agro-700 px-3 py-2 rounded-xl hover:bg-slate-100">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i><span class="hidden sm:inline">Ver site</span>
+                    </a>
+                    <button id="logout-btn" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-red-600 px-3 py-2 rounded-xl hover:bg-slate-100">
+                        <i class="fa-solid fa-right-from-bracket"></i><span class="hidden sm:inline">Sair</span>
+                    </button>
+                </div>
+            </div>
+            <nav class="max-w-6xl mx-auto px-4 pb-3 flex gap-2 overflow-x-auto">
+                <button data-tab="products" class="tab-btn active px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 whitespace-nowrap"><i class="fa-solid fa-box mr-1.5"></i>Produtos</button>
+                <button data-tab="categories" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 whitespace-nowrap"><i class="fa-solid fa-tags mr-1.5"></i>Categorias</button>
+                <button data-tab="account" class="tab-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 text-slate-700 whitespace-nowrap"><i class="fa-solid fa-key mr-1.5"></i>Senha</button>
+            </nav>
+        </header>
+
+        <main class="max-w-6xl mx-auto px-4 py-6">
+            <!-- Produtos -->
+            <section id="tab-products" class="space-y-5">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="stats"></div>
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col md:flex-row gap-3 md:items-center">
+                    <div class="relative flex-1">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                        <input id="search" type="search" placeholder="Buscar produto..." class="field" style="padding-left: 2.4rem">
+                    </div>
+                    <select id="category-filter" class="field md:w-56"></select>
+                    <button id="new-product-btn" class="inline-flex items-center justify-center gap-2 bg-agro-600 hover:bg-agro-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm whitespace-nowrap">
+                        <i class="fa-solid fa-plus"></i> Novo produto
+                    </button>
+                </div>
+
+                <p id="reorder-hint" class="hidden text-xs text-slate-500"><i class="fa-solid fa-circle-info mr-1"></i>Limpe a busca e o filtro para mudar a ordem dos produtos.</p>
+                <div id="product-list" class="space-y-3"></div>
+            </section>
+
+            <!-- Categorias -->
+            <section id="tab-categories" class="hidden">
+                <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 max-w-2xl space-y-5">
+                    <div>
+                        <h2 class="font-bold text-lg text-slate-900">Categorias</h2>
+                        <p class="text-sm text-slate-500">São os filtros que aparecem acima dos produtos no site. A ordem aqui é a ordem dos botões.</p>
+                    </div>
+                    <div id="category-list" class="space-y-2"></div>
+                    <button id="add-category-btn" class="w-full border-2 border-dashed border-slate-200 hover:border-agro-500 hover:text-agro-700 text-slate-500 font-semibold py-3 rounded-xl text-sm">
+                        <i class="fa-solid fa-plus mr-1"></i> Adicionar categoria
+                    </button>
+                    <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                        <button id="reset-categories-btn" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100">Descartar</button>
+                        <button id="save-categories-btn" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-agro-600 hover:bg-agro-700 text-white">Salvar categorias</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Senha -->
+            <section id="tab-account" class="hidden">
+                <form id="password-form" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 max-w-md space-y-4">
+                    <div>
+                        <h2 class="font-bold text-lg text-slate-900">Trocar senha</h2>
+                        <p class="text-sm text-slate-500">Ao trocar, outros aparelhos conectados precisarão entrar de novo.</p>
+                    </div>
+                    <div>
+                        <label for="pw-current" class="block text-xs font-semibold text-slate-600 mb-1.5">Senha atual</label>
+                        <input id="pw-current" type="password" class="field" autocomplete="current-password" required>
+                    </div>
+                    <div>
+                        <label for="pw-next" class="block text-xs font-semibold text-slate-600 mb-1.5">Nova senha (mín. 6 caracteres)</label>
+                        <input id="pw-next" type="password" class="field" autocomplete="new-password" minlength="6" required>
+                    </div>
+                    <div>
+                        <label for="pw-confirm" class="block text-xs font-semibold text-slate-600 mb-1.5">Repita a nova senha</label>
+                        <input id="pw-confirm" type="password" class="field" autocomplete="new-password" minlength="6" required>
+                    </div>
+                    <button type="submit" class="w-full bg-agro-600 hover:bg-agro-700 text-white font-semibold py-3 rounded-xl text-sm">Salvar nova senha</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal de produto -->
+    <div id="product-modal" class="hidden fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm flex items-end sm:items-center justify-center sm:p-4">
+        <form id="product-form" class="bg-white w-full sm:max-w-2xl max-h-[95vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl shadow-2xl">
+            <div class="sticky top-0 bg-white z-10 flex items-center justify-between px-5 sm:px-6 py-4 border-b border-slate-100">
+                <h2 id="modal-title" class="font-bold text-lg text-slate-900">Novo produto</h2>
+                <button type="button" data-close class="w-9 h-9 rounded-xl hover:bg-slate-100 text-slate-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-5 sm:p-6 grid grid-cols-1 sm:grid-cols-5 gap-5">
+                <!-- Foto -->
+                <div class="sm:col-span-2 space-y-2">
+                    <span class="block text-xs font-semibold text-slate-600">Foto do produto</span>
+                    <div id="image-drop" class="relative aspect-[4/3] rounded-2xl bg-slate-100 border-2 border-dashed border-slate-200 overflow-hidden flex items-center justify-center cursor-pointer hover:border-agro-500 transition-colors">
+                        <img id="image-preview" class="hidden absolute inset-0 w-full h-full object-cover" alt="">
+                        <div id="image-empty" class="text-center text-slate-400 p-4">
+                            <i class="fa-solid fa-camera text-3xl mb-2"></i>
+                            <p class="text-xs font-medium">Clique ou arraste uma foto</p>
+                        </div>
+                        <div id="image-loading" class="hidden absolute inset-0 bg-slate-900/50 flex flex-col items-center justify-center text-white text-xs gap-2">
+                            <span class="spinner"></span><span>Enviando foto...</span>
+                        </div>
+                    </div>
+                    <input id="image-file" type="file" accept="image/*" class="hidden">
+                    <div class="flex gap-2">
+                        <button type="button" id="image-pick-btn" class="flex-1 text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-lg"><i class="fa-solid fa-upload mr-1"></i> Escolher foto</button>
+                        <button type="button" id="image-remove-btn" class="hidden text-xs font-semibold bg-red-50 hover:bg-red-100 text-red-600 px-3 py-2 rounded-lg" title="Remover foto"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                    <details class="text-xs text-slate-500">
+                        <summary class="cursor-pointer hover:text-agro-700">Usar link de imagem</summary>
+                        <input id="image-url" type="url" placeholder="https://..." class="field mt-2 text-xs">
+                    </details>
+                </div>
+
+                <!-- Dados -->
+                <div class="sm:col-span-3 space-y-4">
+                    <div>
+                        <label for="f-name" class="block text-xs font-semibold text-slate-600 mb-1.5">Nome *</label>
+                        <input id="f-name" class="field" maxlength="120" required placeholder="Ex: Ração Premium Cães 15kg">
+                    </div>
+                    <div>
+                        <label for="f-category" class="block text-xs font-semibold text-slate-600 mb-1.5">Categoria *</label>
+                        <select id="f-category" class="field" required></select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label for="f-price" class="block text-xs font-semibold text-slate-600 mb-1.5">Preço (R$) *</label>
+                            <input id="f-price" class="field" inputmode="decimal" required placeholder="149,90">
+                        </div>
+                        <div>
+                            <label for="f-promo" class="block text-xs font-semibold text-slate-600 mb-1.5">Preço promocional</label>
+                            <input id="f-promo" class="field" inputmode="decimal" placeholder="Opcional">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="f-description" class="block text-xs font-semibold text-slate-600 mb-1.5">Descrição</label>
+                        <textarea id="f-description" class="field" rows="3" maxlength="600" placeholder="Detalhes do produto"></textarea>
+                    </div>
+                    <div class="space-y-2">
+                        <button type="button" id="f-visible" class="w-full flex items-center justify-between gap-3 bg-slate-50 rounded-xl px-4 py-3 text-left">
+                            <span><span class="block text-sm font-semibold text-slate-800">Mostrar no site</span><span class="block text-xs text-slate-500">Desligado, o produto fica oculto.</span></span>
+                            <span class="switch"></span>
+                        </button>
+                        <button type="button" id="f-available" class="w-full flex items-center justify-between gap-3 bg-slate-50 rounded-xl px-4 py-3 text-left">
+                            <span><span class="block text-sm font-semibold text-slate-800">Disponível em estoque</span><span class="block text-xs text-slate-500">Desligado, aparece como "Esgotado".</span></span>
+                            <span class="switch"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <p id="form-error" class="hidden mx-5 sm:mx-6 mb-4 text-sm text-red-600 bg-red-50 rounded-xl px-3 py-2"></p>
+            <div class="sticky bottom-0 bg-white flex justify-end gap-2 px-5 sm:px-6 py-4 border-t border-slate-100">
+                <button type="button" data-close class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button>
+                <button type="submit" id="save-product-btn" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-agro-600 hover:bg-agro-700 text-white disabled:opacity-60 min-w-[120px] flex items-center justify-center">Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Confirmacao -->
+    <div id="confirm-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl shadow-2xl p-6 space-y-4">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-xl"><i class="fa-solid fa-trash"></i></div>
+            <div>
+                <h3 id="confirm-title" class="font-bold text-lg text-slate-900"></h3>
+                <p id="confirm-text" class="text-sm text-slate-500 mt-1"></p>
+            </div>
+            <div class="flex justify-end gap-2">
+                <button id="confirm-no" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button>
+                <button id="confirm-yes" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-red-600 hover:bg-red-700 text-white">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aviso -->
+    <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] px-4 py-3 rounded-xl shadow-xl text-sm font-medium text-white max-w-[90vw]"></div>
+
+    <script>
+        const $ = (id) => document.getElementById(id);
+        const state = { categories: [], products: [], editing: null, image: '', uploading: false, catDraft: [] };
+
+        // ---------- Sessao ----------
+        const TOKEN_KEY = 'agro-admin-token';
+        function getToken() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch { return ''; } }
+        function setToken(t) { try { t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); } catch {} }
+
+        async function api(path, options = {}) {
+            const headers = { ...(options.headers || {}) };
+            const token = getToken();
+            if (token) headers.Authorization = 'Bearer ' + token;
+            let body = options.body;
+            if (body && !(body instanceof Blob)) {
+                headers['Content-Type'] = 'application/json';
+                body = JSON.stringify(body);
+            }
+            const res = await fetch(path, { ...options, headers, body });
+            let data = {};
+            try { data = await res.json(); } catch {}
+            if (res.status === 401 && path !== '/api/login') {
+                setToken('');
+                showLogin('Sua sessão expirou. Entre novamente.');
+                throw new Error('Sessão expirada.');
+            }
+            if (!res.ok) throw new Error(data.error || 'Erro ' + res.status);
+            return data;
+        }
+
+        function showLogin(message) {
+            $('app-view').classList.add('hidden');
+            $('login-view').classList.remove('hidden');
+            $('login-error').textContent = message || '';
+            $('login-error').classList.toggle('hidden', !message);
+            $('login-password').value = '';
+            $('login-password').focus();
+        }
+
+        async function showApp() {
+            $('login-view').classList.add('hidden');
+            $('app-view').classList.remove('hidden');
+            await loadData();
+        }
+
+        $('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.submitter || e.target.querySelector('button[type=submit]');
+            setBusy(btn, true);
+            try {
+                const { token } = await api('/api/login', { method: 'POST', body: { password: $('login-password').value } });
+                setToken(token);
+                await showApp();
+            } catch (err) {
+                $('login-error').textContent = err.message;
+                $('login-error').classList.remove('hidden');
+            } finally {
+                setBusy(btn, false);
+            }
+        });
+
+        $('logout-btn').addEventListener('click', () => { setToken(''); showLogin(); });
+
+        // ---------- Utilidades ----------
+        const money = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const priceInput = (v) => v == null ? '' : Number(v).toFixed(2).replace('.', ',');
+        const catById = (id) => state.categories.find((c) => c.id === id);
+
+        let toastTimer;
+        function toast(msg, type = 'ok') {
+            const el = $('toast');
+            el.textContent = msg;
+            el.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 z-[60] px-4 py-3 rounded-xl shadow-xl text-sm font-medium text-white max-w-[90vw] ' + (type === 'error' ? 'bg-red-600' : 'bg-slate-900');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => el.classList.add('hidden'), 3500);
+        }
+
+        function setBusy(btn, busy) {
+            if (!btn) return;
+            if (busy) {
+                btn.dataset.label = btn.innerHTML;
+                btn.innerHTML = '<span class="spinner"></span>';
+                btn.disabled = true;
+            } else if (btn.dataset.label) {
+                btn.innerHTML = btn.dataset.label;
+                btn.disabled = false;
+            }
+        }
+
+        function setSwitch(btn, on) {
+            btn.dataset.on = on ? '1' : '';
+            btn.querySelector('.switch').classList.toggle('on', on);
+        }
+        ['f-visible', 'f-available'].forEach((id) => $(id).addEventListener('click', () => setSwitch($(id), !$(id).dataset.on)));
+
+        function confirmDialog(title, text) {
+            return new Promise((resolve) => {
+                $('confirm-title').textContent = title;
+                $('confirm-text').textContent = text;
+                $('confirm-modal').classList.remove('hidden');
+                const done = (v) => { $('confirm-modal').classList.add('hidden'); $('confirm-yes').onclick = $('confirm-no').onclick = null; resolve(v); };
+                $('confirm-yes').onclick = () => done(true);
+                $('confirm-no').onclick = () => done(false);
+            });
+        }
+
+        // ---------- Abas ----------
+        document.querySelectorAll('.tab-btn').forEach((btn) => btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach((b) => b.classList.toggle('active', b === btn));
+            ['products', 'categories', 'account'].forEach((t) => $('tab-' + t).classList.toggle('hidden', t !== btn.dataset.tab));
+            if (btn.dataset.tab === 'categories') resetCategoryDraft();
+        }));
+
+        // ---------- Produtos ----------
+        async function loadData() {
+            $('product-list').innerHTML = '<div class="text-center text-slate-400 py-16"><i class="fa-solid fa-circle-notch fa-spin text-2xl"></i></div>';
+            try {
+                const data = await api('/api/data');
+                state.categories = data.categories;
+                state.products = data.products;
+                renderCategoryOptions();
+                renderProducts();
+            } catch (err) {
+                $('product-list').innerHTML = `<div class="bg-red-50 text-red-700 rounded-2xl p-5 text-sm">Não foi possível carregar os produtos: ${esc(err.message)}</div>`;
+            }
+        }
+
+        function renderCategoryOptions() {
+            const current = $('category-filter').value;
+            $('category-filter').innerHTML = '<option value="">Todas as categorias</option>' +
+                state.categories.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+            $('category-filter').value = catById(current) ? current : '';
+            $('f-category').innerHTML = state.categories.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+        }
+
+        function renderStats() {
+            const p = state.products;
+            const stats = [
+                ['Produtos', p.length, 'fa-box', 'text-slate-700 bg-slate-100'],
+                ['No site', p.filter((x) => x.visible).length, 'fa-eye', 'text-agro-700 bg-agro-100'],
+                ['Ocultos', p.filter((x) => !x.visible).length, 'fa-eye-slash', 'text-slate-500 bg-slate-100'],
+                ['Esgotados', p.filter((x) => !x.available).length, 'fa-circle-exclamation', 'text-amber-700 bg-amber-100'],
+            ];
+            $('stats').innerHTML = stats.map(([label, n, icon, cls]) => `
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl ${cls} flex items-center justify-center shrink-0"><i class="fa-solid ${icon}"></i></div>
+                    <div><p class="text-2xl font-extrabold text-slate-900 leading-none">${n}</p><p class="text-xs text-slate-500 mt-1">${label}</p></div>
+                </div>`).join('');
+        }
+
+        function filteredProducts() {
+            const q = $('search').value.trim().toLowerCase();
+            const cat = $('category-filter').value;
+            return state.products.filter((p) => (!cat || p.category === cat) && (!q || p.name.toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q)));
+        }
+
+        function renderProducts() {
+            renderStats();
+            const list = filteredProducts();
+            const filtering = list.length !== state.products.length || $('search').value.trim() || $('category-filter').value;
+            $('reorder-hint').classList.toggle('hidden', !filtering || !state.products.length);
+
+            if (!state.products.length) {
+                $('product-list').innerHTML = `<div class="bg-white rounded-2xl border border-slate-200 p-10 text-center space-y-3">
+                    <i class="fa-solid fa-box-open text-4xl text-slate-300"></i>
+                    <p class="text-slate-600 font-medium">Nenhum produto cadastrado ainda.</p>
+                    <button onclick="openEditor()" class="bg-agro-600 hover:bg-agro-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm"><i class="fa-solid fa-plus mr-1"></i> Cadastrar o primeiro</button></div>`;
+                return;
+            }
+            if (!list.length) {
+                $('product-list').innerHTML = '<div class="bg-white rounded-2xl border border-slate-200 p-10 text-center text-slate-500 text-sm">Nenhum produto encontrado.</div>';
+                return;
+            }
+
+            $('product-list').innerHTML = list.map((p, i) => {
+                const cat = catById(p.category);
+                const img = p.image
+                    ? `<img src="${esc(p.image)}" alt="" class="w-full h-full object-cover" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'fa-solid fa-image text-slate-300 text-xl'}))">`
+                    : '<i class="fa-solid fa-image text-slate-300 text-xl"></i>';
+                const price = p.promoPrice != null
+                    ? `<span class="text-xs text-slate-400 line-through mr-1">${money(p.price)}</span><span class="font-bold text-agro-700">${money(p.promoPrice)}</span>`
+                    : `<span class="font-bold text-agro-700">${money(p.price)}</span>`;
+                const moveBtns = filtering ? '' : `
+                    <div class="flex flex-col gap-1">
+                        <button onclick="moveProduct('${p.id}', -1)" ${i === 0 ? 'disabled' : ''} class="w-8 h-8 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 disabled:opacity-30 disabled:hover:bg-transparent" title="Subir"><i class="fa-solid fa-chevron-up text-xs"></i></button>
+                        <button onclick="moveProduct('${p.id}', 1)" ${i === list.length - 1 ? 'disabled' : ''} class="w-8 h-8 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700 disabled:opacity-30 disabled:hover:bg-transparent" title="Descer"><i class="fa-solid fa-chevron-down text-xs"></i></button>
+                    </div>`;
+                return `
+                <div class="bg-white rounded-2xl border border-slate-200 p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center gap-3 ${p.visible ? '' : 'opacity-70'}">
+                    <div class="flex items-center gap-3 flex-1 min-w-0">
+                        ${moveBtns}
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-100 overflow-hidden flex items-center justify-center shrink-0">${img}</div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex flex-wrap items-center gap-1.5 mb-1">
+                                ${cat ? `<span class="text-[11px] font-bold text-white px-2 py-0.5 rounded-full" style="background:${esc(cat.color)}">${esc(cat.name)}</span>` : ''}
+                                ${p.visible ? '' : '<span class="text-[11px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full"><i class="fa-solid fa-eye-slash mr-1"></i>Oculto</span>'}
+                                ${p.available ? '' : '<span class="text-[11px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">Esgotado</span>'}
+                                ${p.promoPrice != null ? '<span class="text-[11px] font-bold bg-red-100 text-red-700 px-2 py-0.5 rounded-full">Promoção</span>' : ''}
+                            </div>
+                            <p class="font-semibold text-slate-900 truncate">${esc(p.name)}</p>
+                            <p class="text-sm">${price}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1 sm:gap-3 border-t sm:border-0 border-slate-100 pt-3 sm:pt-0">
+                        <button onclick="quickToggle('${p.id}', 'visible')" class="flex items-center gap-2 text-xs font-medium text-slate-600 px-2 py-1.5 rounded-lg hover:bg-slate-50" title="Mostrar no site">
+                            <span class="switch ${p.visible ? 'on' : ''}"></span><span>No site</span>
+                        </button>
+                        <button onclick="quickToggle('${p.id}', 'available')" class="flex items-center gap-2 text-xs font-medium text-slate-600 px-2 py-1.5 rounded-lg hover:bg-slate-50" title="Disponível em estoque">
+                            <span class="switch ${p.available ? 'on' : ''}"></span><span>Estoque</span>
+                        </button>
+                        <div class="flex gap-1 ml-auto">
+                            <button onclick="openEditor('${p.id}')" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-agro-100 hover:text-agro-700 text-slate-600" title="Editar"><i class="fa-solid fa-pen text-sm"></i></button>
+                            <button onclick="deleteProduct('${p.id}')" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-red-100 hover:text-red-600 text-slate-600" title="Excluir"><i class="fa-solid fa-trash text-sm"></i></button>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        $('search').addEventListener('input', renderProducts);
+        $('category-filter').addEventListener('change', renderProducts);
+        $('new-product-btn').addEventListener('click', () => openEditor());
+
+        async function quickToggle(id, field) {
+            const p = state.products.find((x) => x.id === id);
+            const before = p[field];
+            p[field] = !before;
+            renderProducts();
+            try {
+                Object.assign(p, await api('/api/products/' + id, { method: 'PUT', body: { [field]: p[field] } }));
+                toast(field === 'visible' ? (p.visible ? 'Produto visível no site.' : 'Produto oculto do site.') : (p.available ? 'Marcado como disponível.' : 'Marcado como esgotado.'));
+            } catch (err) {
+                p[field] = before;
+                renderProducts();
+                toast(err.message, 'error');
+            }
+        }
+
+        async function moveProduct(id, dir) {
+            const idx = state.products.findIndex((p) => p.id === id);
+            const target = idx + dir;
+            if (target < 0 || target >= state.products.length) return;
+            const snapshot = [...state.products];
+            [state.products[idx], state.products[target]] = [state.products[target], state.products[idx]];
+            renderProducts();
+            try {
+                await api('/api/products/order', { method: 'PUT', body: { ids: state.products.map((p) => p.id) } });
+            } catch (err) {
+                state.products = snapshot;
+                renderProducts();
+                toast(err.message, 'error');
+            }
+        }
+
+        async function deleteProduct(id) {
+            const p = state.products.find((x) => x.id === id);
+            if (!await confirmDialog('Excluir produto?', `"${p.name}" será removido do site. Essa ação não pode ser desfeita.`)) return;
+            try {
+                await api('/api/products/' + id, { method: 'DELETE' });
+                state.products = state.products.filter((x) => x.id !== id);
+                renderProducts();
+                toast('Produto excluído.');
+            } catch (err) {
+                toast(err.message, 'error');
+            }
+        }
+
+        // ---------- Editor ----------
+        function openEditor(id) {
+            const p = id ? state.products.find((x) => x.id === id) : null;
+            state.editing = p ? p.id : null;
+            $('modal-title').textContent = p ? 'Editar produto' : 'Novo produto';
+            $('f-name').value = p ? p.name : '';
+            $('f-category').value = p ? p.category : ($('category-filter').value || state.categories[0]?.id || '');
+            $('f-price').value = p ? priceInput(p.price) : '';
+            $('f-promo').value = p ? priceInput(p.promoPrice) : '';
+            $('f-description').value = p ? p.description || '' : '';
+            setSwitch($('f-visible'), p ? p.visible : true);
+            setSwitch($('f-available'), p ? p.available : true);
+            setImage(p ? p.image : '');
+            $('form-error').classList.add('hidden');
+            $('product-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => $('f-name').focus(), 50);
+        }
+
+        function closeEditor() {
+            if (state.uploading) return;
+            $('product-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        document.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', closeEditor));
+        $('product-modal').addEventListener('mousedown', (e) => { if (e.target === $('product-modal')) closeEditor(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('product-modal').classList.contains('hidden')) closeEditor(); });
+
+        function setImage(url) {
+            state.image = url || '';
+            $('image-url').value = /\.blob\.vercel-storage\.com\//.test(state.image) ? '' : state.image;
+            $('image-preview').classList.toggle('hidden', !state.image);
+            $('image-empty').classList.toggle('hidden', !!state.image);
+            $('image-remove-btn').classList.toggle('hidden', !state.image);
+            if (state.image) $('image-preview').src = state.image; else $('image-preview').removeAttribute('src');
+        }
+
+        $('image-preview').addEventListener('error', () => {
+            if (!state.image) return;
+            $('image-preview').classList.add('hidden');
+            $('image-empty').classList.remove('hidden');
+            $('image-empty').innerHTML = '<i class="fa-solid fa-triangle-exclamation text-2xl mb-2 text-amber-500"></i><p class="text-xs font-medium">Não foi possível abrir essa imagem</p>';
+        });
+        $('image-preview').addEventListener('load', () => {
+            $('image-empty').innerHTML = '<i class="fa-solid fa-camera text-3xl mb-2"></i><p class="text-xs font-medium">Clique ou arraste uma foto</p>';
+        });
+
+        $('image-drop').addEventListener('click', () => $('image-file').click());
+        $('image-pick-btn').addEventListener('click', () => $('image-file').click());
+        $('image-remove-btn').addEventListener('click', () => setImage(''));
+        $('image-url').addEventListener('change', () => setImage($('image-url').value.trim()));
+        $('image-file').addEventListener('change', () => { if ($('image-file').files[0]) uploadImage($('image-file').files[0]); $('image-file').value = ''; });
+        ['dragover', 'dragenter'].forEach((ev) => $('image-drop').addEventListener(ev, (e) => { e.preventDefault(); $('image-drop').classList.add('border-agro-500'); }));
+        ['dragleave', 'drop'].forEach((ev) => $('image-drop').addEventListener(ev, () => $('image-drop').classList.remove('border-agro-500')));
+        $('image-drop').addEventListener('drop', (e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) uploadImage(f); });
+
+        // Reduz a foto no navegador (max. 1400px, JPEG) antes de enviar:
+        // fotos de celular ficam leves e dentro do limite do servidor.
+        async function shrinkImage(file) {
+            if (file.type === 'image/gif') return file;
+            const url = URL.createObjectURL(file);
+            try {
+                const img = await new Promise((resolve, reject) => {
+                    const i = new Image();
+                    i.onload = () => resolve(i);
+                    i.onerror = () => reject(new Error('Arquivo de imagem inválido.'));
+                    i.src = url;
+                });
+                const scale = Math.min(1, 1400 / Math.max(img.naturalWidth, img.naturalHeight));
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.round(img.naturalWidth * scale);
+                canvas.height = Math.round(img.naturalHeight * scale);
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#fff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                return await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.85));
+            } finally {
+                URL.revokeObjectURL(url);
+            }
+        }
+
+        async function uploadImage(file) {
+            if (!file.type.startsWith('image/')) return toast('Escolha um arquivo de imagem.', 'error');
+            state.uploading = true;
+            $('image-loading').classList.remove('hidden');
+            $('save-product-btn').disabled = true;
+            try {
+                const blob = await shrinkImage(file);
+                const { url } = await api('/api/upload', { method: 'POST', body: blob, headers: { 'Content-Type': 'application/octet-stream', 'X-Image-Type': blob.type } });
+                setImage(url);
+            } catch (err) {
+                toast(err.message, 'error');
+            } finally {
+                state.uploading = false;
+                $('image-loading').classList.add('hidden');
+                $('save-product-btn').disabled = false;
+            }
+        }
+
+        $('product-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (state.uploading) return;
+            const body = {
+                name: $('f-name').value,
+                category: $('f-category').value,
+                price: $('f-price').value,
+                promoPrice: $('f-promo').value,
+                description: $('f-description').value,
+                image: state.image,
+                visible: !!$('f-visible').dataset.on,
+                available: !!$('f-available').dataset.on,
+            };
+            const btn = $('save-product-btn');
+            setBusy(btn, true);
+            $('form-error').classList.add('hidden');
+            try {
+                if (state.editing) {
+                    const updated = await api('/api/products/' + state.editing, { method: 'PUT', body });
+                    state.products = state.products.map((p) => p.id === updated.id ? updated : p);
+                    toast('Produto atualizado.');
+                } else {
+                    const created = await api('/api/products', { method: 'POST', body });
+                    state.products.unshift(created);
+                    toast('Produto cadastrado.');
+                }
+                setBusy(btn, false);
+                closeEditor();
+                renderProducts();
+            } catch (err) {
+                setBusy(btn, false);
+                $('form-error').textContent = err.message;
+                $('form-error').classList.remove('hidden');
+            }
+        });
+
+        // ---------- Categorias ----------
+        function resetCategoryDraft() {
+            state.catDraft = state.categories.map((c) => ({ ...c }));
+            renderCategories();
+        }
+
+        function renderCategories() {
+            const counts = {};
+            state.products.forEach((p) => { counts[p.category] = (counts[p.category] || 0) + 1; });
+            $('category-list').innerHTML = state.catDraft.map((c, i) => {
+                const n = c.id ? counts[c.id] || 0 : 0;
+                return `
+                <div class="flex items-center gap-2 bg-slate-50 rounded-xl p-2">
+                    <div class="flex flex-col">
+                        <button onclick="moveCategory(${i}, -1)" ${i === 0 ? 'disabled' : ''} class="w-7 h-5 text-slate-400 hover:text-slate-700 disabled:opacity-30"><i class="fa-solid fa-chevron-up text-[10px]"></i></button>
+                        <button onclick="moveCategory(${i}, 1)" ${i === state.catDraft.length - 1 ? 'disabled' : ''} class="w-7 h-5 text-slate-400 hover:text-slate-700 disabled:opacity-30"><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                    </div>
+                    <input type="color" value="${esc(c.color)}" oninput="state.catDraft[${i}].color = this.value" class="w-9 h-9 rounded-lg border border-slate-200 cursor-pointer bg-white p-0.5 shrink-0" title="Cor da etiqueta">
+                    <input value="${esc(c.name)}" oninput="state.catDraft[${i}].name = this.value" maxlength="40" class="field flex-1 min-w-0" placeholder="Nome da categoria">
+                    <span class="text-xs text-slate-500 whitespace-nowrap hidden sm:inline">${n} produto${n === 1 ? '' : 's'}</span>
+                    <button onclick="removeCategory(${i})" class="w-9 h-9 rounded-xl text-slate-400 hover:bg-red-100 hover:text-red-600 shrink-0 ${n ? 'opacity-40 cursor-not-allowed' : ''}" title="${n ? 'Tem produtos nesta categoria' : 'Excluir'}"><i class="fa-solid fa-trash text-sm"></i></button>
+                </div>`;
+            }).join('');
+        }
+
+        function moveCategory(i, dir) {
+            const j = i + dir;
+            [state.catDraft[i], state.catDraft[j]] = [state.catDraft[j], state.catDraft[i]];
+            renderCategories();
+        }
+
+        function removeCategory(i) {
+            const c = state.catDraft[i];
+            const n = c.id ? state.products.filter((p) => p.category === c.id).length : 0;
+            if (n) return toast(`"${c.name}" tem ${n} produto(s). Mova ou exclua os produtos antes.`, 'error');
+            state.catDraft.splice(i, 1);
+            renderCategories();
+        }
+
+        $('add-category-btn').addEventListener('click', () => {
+            state.catDraft.push({ name: '', color: '#16a34a' });
+            renderCategories();
+            const inputs = $('category-list').querySelectorAll('input:not([type=color])');
+            inputs[inputs.length - 1].focus();
+        });
+        $('reset-categories-btn').addEventListener('click', resetCategoryDraft);
+        $('save-categories-btn').addEventListener('click', async (e) => {
+            const btn = e.currentTarget;
+            setBusy(btn, true);
+            try {
+                const { categories } = await api('/api/categories', { method: 'PUT', body: { categories: state.catDraft } });
+                state.categories = categories;
+                renderCategoryOptions();
+                renderProducts();
+                resetCategoryDraft();
+                toast('Categorias salvas.');
+            } catch (err) {
+                toast(err.message, 'error');
+            } finally {
+                setBusy(btn, false);
+            }
+        });
+
+        // ---------- Senha ----------
+        $('password-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if ($('pw-next').value !== $('pw-confirm').value) return toast('As novas senhas não são iguais.', 'error');
+            const btn = e.submitter || e.target.querySelector('button[type=submit]');
+            setBusy(btn, true);
+            try {
+                const { token } = await api('/api/password', { method: 'POST', body: { current: $('pw-current').value, next: $('pw-next').value } });
+                setToken(token);
+                e.target.reset();
+                toast('Senha alterada.');
+            } catch (err) {
+                toast(err.message, 'error');
+            } finally {
+                setBusy(btn, false);
+            }
+        });
+
+        // ---------- Inicio ----------
+        if (getToken()) showApp(); else showLogin();
+    </script>
+</body>
+</html>

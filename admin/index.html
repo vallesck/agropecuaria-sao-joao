@@ -90,7 +90,7 @@
         <main class="max-w-6xl mx-auto px-4 py-6">
             <!-- Produtos -->
             <section id="tab-products" class="space-y-5">
-                <div class="grid grid-cols-3 gap-3" id="stats"></div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="stats"></div>
 
                 <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col md:flex-row gap-3 md:items-center">
                     <div class="relative flex-1">
@@ -209,6 +209,10 @@
                     <div class="space-y-2">
                         <button type="button" id="f-visible" class="w-full flex items-center justify-between gap-3 bg-slate-50 rounded-xl px-4 py-3 text-left">
                             <span><span class="block text-sm font-semibold text-slate-800">Mostrar no site</span><span class="block text-xs text-slate-500">Desligado, o produto fica oculto.</span></span>
+                            <span class="switch"></span>
+                        </button>
+                        <button type="button" id="f-available" class="w-full flex items-center justify-between gap-3 bg-slate-50 rounded-xl px-4 py-3 text-left">
+                            <span><span class="block text-sm font-semibold text-slate-800">Disponível em estoque</span><span class="block text-xs text-slate-500">Desligado, a foto fica cinza e aparece "Sem estoque".</span></span>
                             <span class="switch"></span>
                         </button>
                     </div>
@@ -334,7 +338,7 @@
             btn.dataset.on = on ? '1' : '';
             btn.querySelector('.switch').classList.toggle('on', on);
         }
-        $('f-visible').addEventListener('click', () => setSwitch($('f-visible'), !$('f-visible').dataset.on));
+        ['f-visible', 'f-available'].forEach((id) => $(id).addEventListener('click', () => setSwitch($(id), !$(id).dataset.on)));
 
         function confirmDialog(title, text) {
             return new Promise((resolve) => {
@@ -382,9 +386,10 @@
                 ['Produtos', p.length, 'fa-box', 'text-slate-700 bg-slate-100'],
                 ['No site', p.filter((x) => x.visible).length, 'fa-eye', 'text-agro-700 bg-agro-100'],
                 ['Ocultos', p.filter((x) => !x.visible).length, 'fa-eye-slash', 'text-slate-500 bg-slate-100'],
+                ['Sem estoque', p.filter((x) => !x.available).length, 'fa-circle-exclamation', 'text-amber-700 bg-amber-100'],
             ];
             $('stats').innerHTML = stats.map(([label, n, icon, cls]) => `
-                <div class="bg-white rounded-2xl border border-slate-200 p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <div class="bg-white rounded-2xl border border-slate-200 p-4 flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl ${cls} flex items-center justify-center shrink-0"><i class="fa-solid ${icon}"></i></div>
                     <div><p class="text-2xl font-extrabold text-slate-900 leading-none">${n}</p><p class="text-xs text-slate-500 mt-1">${label}</p></div>
                 </div>`).join('');
@@ -417,7 +422,7 @@
             $('product-list').innerHTML = list.map((p, i) => {
                 const cat = catById(p.category);
                 const img = p.image
-                    ? `<img src="${esc(p.image)}" alt="" class="w-full h-full object-cover" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'fa-solid fa-image text-slate-300 text-xl'}))">`
+                    ? `<img src="${esc(p.image)}" alt="" class="w-full h-full object-cover ${p.available ? '' : 'grayscale opacity-60'}" onerror="this.replaceWith(Object.assign(document.createElement('i'),{className:'fa-solid fa-image text-slate-300 text-xl'}))">`
                     : '<i class="fa-solid fa-image text-slate-300 text-xl"></i>';
                 const price = p.promoPrice != null
                     ? `<span class="text-xs text-slate-400 line-through mr-1">${money(p.price)}</span><span class="font-bold text-agro-700">${money(p.promoPrice)}</span>`
@@ -436,6 +441,7 @@
                             <div class="flex flex-wrap items-center gap-1.5 mb-1">
                                 ${cat ? `<span class="text-[11px] font-bold text-white px-2 py-0.5 rounded-full" style="background:${esc(cat.color)}">${esc(cat.name)}</span>` : ''}
                                 ${p.visible ? '' : '<span class="text-[11px] font-bold bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full"><i class="fa-solid fa-eye-slash mr-1"></i>Oculto</span>'}
+                                ${p.available ? '' : '<span class="text-[11px] font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">Sem estoque</span>'}
                                 ${p.promoPrice != null ? '<span class="text-[11px] font-bold bg-red-100 text-red-700 px-2 py-0.5 rounded-full">Promoção</span>' : ''}
                             </div>
                             <p class="font-semibold text-slate-900 truncate">${esc(p.name)}</p>
@@ -445,6 +451,9 @@
                     <div class="flex items-center gap-1 sm:gap-3 border-t sm:border-0 border-slate-100 pt-3 sm:pt-0">
                         <button onclick="quickToggle('${p.id}', 'visible')" class="flex items-center gap-2 text-xs font-medium text-slate-600 px-2 py-1.5 rounded-lg hover:bg-slate-50" title="Mostrar no site">
                             <span class="switch ${p.visible ? 'on' : ''}"></span><span>No site</span>
+                        </button>
+                        <button onclick="quickToggle('${p.id}', 'available')" class="flex items-center gap-2 text-xs font-medium text-slate-600 px-2 py-1.5 rounded-lg hover:bg-slate-50" title="Disponível em estoque">
+                            <span class="switch ${p.available ? 'on' : ''}"></span><span>Estoque</span>
                         </button>
                         <div class="flex gap-1 ml-auto">
                             <button onclick="openEditor('${p.id}')" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-agro-100 hover:text-agro-700 text-slate-600" title="Editar"><i class="fa-solid fa-pen text-sm"></i></button>
@@ -466,7 +475,7 @@
             renderProducts();
             try {
                 Object.assign(p, await api('/api/products/' + id, { method: 'PUT', body: { [field]: p[field] } }));
-                toast(p.visible ? 'Produto visível no site.' : 'Produto oculto do site.');
+                toast(field === 'visible' ? (p.visible ? 'Produto visível no site.' : 'Produto oculto do site.') : (p.available ? 'Marcado como disponível.' : 'Marcado como sem estoque.'));
             } catch (err) {
                 p[field] = before;
                 renderProducts();
@@ -514,6 +523,7 @@
             $('f-promo').value = p ? priceInput(p.promoPrice) : '';
             $('f-description').value = p ? p.description || '' : '';
             setSwitch($('f-visible'), p ? p.visible : true);
+            setSwitch($('f-available'), p ? p.available : true);
             setImage(p ? p.image : '');
             $('form-error').classList.add('hidden');
             $('product-modal').classList.remove('hidden');
@@ -613,6 +623,7 @@
                 description: $('f-description').value,
                 image: state.image,
                 visible: !!$('f-visible').dataset.on,
+                available: !!$('f-available').dataset.on,
             };
             const btn = $('save-product-btn');
             setBusy(btn, true);

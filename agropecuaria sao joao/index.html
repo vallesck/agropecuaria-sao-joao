@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agropecuária São João | Nhandeara - SP</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        agro: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom animations for hero background */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+            animation: float 8s ease-in-out 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-agro-500 selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-agro-700 to-agro-500 flex items-center justify-center text-white shadow-md shadow-agro-500/20">
+                    <i class="fa-solid fa-paw text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg sm:text-xl text-slate-900 tracking-tight">Agropecuária São João</h1>
+                    <p class="text-xs text-agro-600 font-medium flex items-center gap-1">
+                        Tradição, qualidade e compromisso
+                    </p>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#produtos" class="hover:text-agro-600 transition-colors">Produtos</a>
+                <a href="#servicos" class="hover:text-agro-600 transition-colors">Serviços & Clínica</a>
+                <a href="#sobre" class="hover:text-agro-600 transition-colors">Localização</a>
+                <a href="#avaliacoes" class="hover:text-agro-600 transition-colors">Avaliações (5.0)</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <a href="https://wa.me/5517997491516?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20atendimento." target="_blank" class="hidden sm:inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow-md shadow-emerald-600/20 transition-all transform hover:-translate-y-0.5 text-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>(17) 99749-1516</span>
+                </a>
+                <button id="menu-btn" class="md:hidden p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 pt-2 pb-6 space-y-3">
+            <a href="#produtos" class="block py-2 text-slate-700 font-medium border-b border-slate-50">Produtos</a>
+            <a href="#servicos" class="block py-2 text-slate-700 font-medium border-b border-slate-50">Serviços & Clínica</a>
+            <a href="#sobre" class="block py-2 text-slate-700 font-medium border-b border-slate-50">Localização</a>
+            <a href="#avaliacoes" class="block py-2 text-slate-700 font-medium border-b border-slate-50">Avaliações</a>
+            <div class="pt-2">
+                <a href="https://wa.me/5517997491516?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20atendimento." target="_blank" class="w-full flex items-center justify-center gap-2 bg-emerald-600 text-white font-semibold py-3 rounded-xl shadow-md">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Chamar no WhatsApp</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative overflow-hidden bg-gradient-to-br from-agro-900 via-agro-800 to-slate-900 text-white py-20 lg:py-28">
+        <!-- Animated Background Decor Elements -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-10 left-10 w-72 h-72 rounded-full bg-agro-500 blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-emerald-400 blur-3xl animate-pulse" style="animation-duration: 4s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 bg-agro-800/80 border border-agro-700 px-4 py-2 rounded-full text-emerald-300 text-xs sm:text-sm font-medium backdrop-blur-sm animate-float">
+                        <i class="fa-solid fa-star text-amber-400"></i>
+                        <span>Avaliação 5.0 (5 avaliações no Google)</span>
+                    </div>
+
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Cuidado completo para seu <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-agro-500">pet e sua lavoura</span>
+                    </h2>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light">
+                        Na <strong>Agropecuária São João</strong>, oferecemos atendimento veterinário de excelência, medicamentos, rações de qualidade e toda linha agropecuária em Nhandeara - SP.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="https://wa.me/5517997491516?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20pedido." target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-8 py-4 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all transform hover:-translate-y-1">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </a>
+                        <a href="#servicos" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-4 rounded-2xl backdrop-blur-md transition-all">
+                            <i class="fa-solid fa-stethoscope text-emerald-400"></i>
+                            <span>Ver Serviços Veterinários</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick info cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 text-left">
+                        <div class="bg-white/5 border border-white/10 p-3.5 rounded-2xl backdrop-blur-sm">
+                            <i class="fa-solid fa-location-dot text-emerald-400 mb-1"></i>
+                            <h4 class="text-xs text-slate-400 font-medium">Endereço</h4>
+                            <p class="text-xs sm:text-sm font-semibold text-white truncate">Centro, Nhandeara - SP</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-3.5 rounded-2xl backdrop-blur-sm">
+                            <i class="fa-solid fa-clock text-emerald-400 mb-1"></i>
+                            <h4 class="text-xs text-slate-400 font-medium">Horário</h4>
+                            <p class="text-xs sm:text-sm font-semibold text-white">Até 18:30h</p>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-3.5 rounded-2xl backdrop-blur-sm col-span-2 sm:col-span-1">
+                            <i class="fa-solid fa-shield-dog text-emerald-400 mb-1"></i>
+                            <h4 class="text-xs text-slate-400 font-medium">Atendimento</h4>
+                            <p class="text-xs sm:text-sm font-semibold text-white">Emergência & Clínica</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Animated Hero Visual -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <!-- Glowing backdrop badge -->
+                        <div class="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-agro-600 rounded-3xl blur-xl opacity-30 animate-pulse"></div>
+                        
+                        <div class="relative bg-slate-800/80 border border-slate-700/80 p-6 sm:p-8 rounded-3xl backdrop-blur-xl shadow-2xl space-y-6">
+                            <div class="flex items-center justify-between border-b border-slate-700 pb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                                        <i class="fa-solid fa-user-doctor"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-white text-sm">Clínica Veterinária</h3>
+                                        <p class="text-xs text-emerald-400 font-medium">Plantão & Consultas</p>
+                                    </div>
+                                </div>
+                                <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2.5 py-1 rounded-full font-semibold">5.0 ★★★★★</span>
+                            </div>
+
+                            <div class="space-y-3">
+                                <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Principais Serviços</p>
+                                <div class="grid grid-cols-2 gap-2 text-xs">
+                                    <div class="bg-slate-700/50 p-2.5 rounded-xl flex items-center gap-2 text-slate-200">
+                                        <i class="fa-solid fa-check text-emerald-400"></i> Castração
+                                    </div>
+                                    <div class="bg-slate-700/50 p-2.5 rounded-xl flex items-center gap-2 text-slate-200">
+                                        <i class="fa-solid fa-check text-emerald-400"></i> Cirurgias
+                                    </div>
+                                    <div class="bg-slate-700/50 p-2.5 rounded-xl flex items-center gap-2 text-slate-200">
+                                        <i class="fa-solid fa-check text-emerald-400"></i> Emergência
+                                    </div>
+                                    <div class="bg-slate-700/50 p-2.5 rounded-xl flex items-center gap-2 text-slate-200">
+                                        <i class="fa-solid fa-check text-emerald-400"></i> Vacinas
+                                    </div>
+                                    <div class="bg-slate-700/50 p-2.5 rounded-xl flex items-center gap-2 text-slate-200">
+                                        <i class="fa-solid fa-check text-emerald-400"></i> Cães e Gatos
+                                    </div>
+                                    <div class="bg-slate-700/50 p-2.5 rounded-xl flex items-center gap-2 text-slate-200">
+                                        <i class="fa-solid fa-check text-emerald-400"></i> Remédios
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="https://wa.me/5517997491516?text=Olá,%20preciso%20de%20um%20veterinário%20com%20urgência." target="_blank" class="w-full block text-center bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-xl transition-all shadow-lg shadow-emerald-600/30 text-sm">
+                                <i class="fa-solid fa-phone-volume mr-2"></i> Ligar / WhatsApp de Emergência
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="servicos" class="py-16 bg-white border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+                <span class="text-xs font-bold uppercase tracking-widest text-agro-600 bg-agro-50 px-3 py-1 rounded-full">Área Veterinária</span>
+                <h3 class="text-3xl font-bold text-slate-900">Serviços Profissionais Dedicados</h3>
+                <p class="text-slate-600 text-sm sm:text-base">Contamos com infraestrutura completa e profissionais qualificados para cuidar da saúde e bem-estar dos animais.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="bg-slate-50 border border-slate-100 p-6 rounded-2xl hover:shadow-xl transition-all group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-agro-100 text-agro-700 flex items-center justify-center text-xl mb-4 group-hover:bg-agro-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-syringe"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-1">Vacinas para Animais</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Imunização completa para cães, gatos e animais de grande porte com controle rigoroso de carteirinha.</p>
+                </div>
+                <!-- Service 2 -->
+                <div class="bg-slate-50 border border-slate-100 p-6 rounded-2xl hover:shadow-xl transition-all group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-agro-100 text-agro-700 flex items-center justify-center text-xl mb-4 group-hover:bg-agro-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-kit-medical"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-1">Serviço de Emergência</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Atendimento rápido e suporte clínico imediato para situações urgentes com seu pet.</p>
+                </div>
+                <!-- Service 3 -->
+                <div class="bg-slate-50 border border-slate-100 p-6 rounded-2xl hover:shadow-xl transition-all group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-agro-100 text-agro-700 flex items-center justify-center text-xl mb-4 group-hover:bg-agro-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-scissors"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-1">Castração & Cirurgias</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Procedimentos cirúrgicos realizados em ambiente esterilizado com total segurança e anestesia adequada.</p>
+                </div>
+                <!-- Service 4 -->
+                <div class="bg-slate-50 border border-slate-100 p-6 rounded-2xl hover:shadow-xl transition-all group hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-agro-100 text-agro-700 flex items-center justify-center text-xl mb-4 group-hover:bg-agro-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-prescription-bottle-medical"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 mb-1">Remédios & Farmácia</h4>
+                    <p class="text-slate-600 text-xs leading-relaxed">Amplo estoque de medicamentos veterinários, antibióticos, antipulgas e suplementos de alta eficácia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="produtos" class="py-16 bg-slate-100/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-agro-600 bg-agro-50 px-3 py-1 rounded-full">Catálogo de Produtos</span>
+                    <h3 class="text-3xl font-bold text-slate-900 mt-2">Nossos Produtos Disponíveis</h3>
+                    <p class="text-slate-600 text-sm mt-1">Escolha o produto desejado e clique para pedir diretamente no nosso WhatsApp.</p>
+                </div>
+                
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap gap-2 mt-4 md:mt-0" id="filter-container">
+                    <button data-filter="all" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-agro-600 text-white shadow-sm transition-all">Todos</button>
+                    <button data-filter="racoes" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Rações</button>
+                    <button data-filter="petiscos" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Petiscos</button>
+                    <button data-filter="medicamentos" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Medicamentos</button>
+                    <button data-filter="acessorios" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Acessórios</button>
+                    <button data-filter="vacinas" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 hover:bg-slate-200 transition-all">Vacinas & Cuidados</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+                
+                <!-- Product 1 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="racoes">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?auto=format&fit=crop&q=80&w=600" alt="Ração Premium Cães Adultos" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Ração+Premium'">
+                            <span class="absolute top-3 left-3 bg-agro-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Rações</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">Ração Super Premium Cães 15kg</h4>
+                                <span class="text-agro-700 font-extrabold text-lg">R$ 149,90</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Alimento completo balanceado para cães adultos de todas as raças. Alta digestibilidade e saúde para o pelo.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="pedirWhatsApp('Ração Super Premium Cães 15kg', 'R$ 149,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="medicamentos">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600" alt="Antipulgas e Carrapatos" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Antipulgas'">
+                            <span class="absolute top-3 left-3 bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Medicamentos</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">Antipulgas & Carrapatos Tablet</h4>
+                                <span class="text-agro-700 font-extrabold text-lg">R$ 89,90</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Proteção rápida e prolongada contra pulgas e carrapatos. Eficácia comprovada por até 35 dias.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="pedirWhatsApp('Antipulgas & Carrapatos Tablet', 'R$ 89,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="racoes">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&q=80&w=600" alt="Ração para Gatos Castrados" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Ração+Gatos'">
+                            <span class="absolute top-3 left-3 bg-agro-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Rações</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">Ração Gatos Castrados 10.1kg</h4>
+                                <span class="text-agro-700 font-extrabold text-lg">R$ 125,00</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Controle de peso e proteção do trato urinário específica para felinos castrados.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="pedirWhatsApp('Ração Gatos Castrados 10.1kg', 'R$ 125,00')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="acessorios">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1576201836106-db1758fd1c97?auto=format&fit=crop&q=80&w=600" alt="Coleira e Guia Resistente" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Acessórios'">
+                            <span class="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Acessórios</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">Kit Coleira & Guia Reforçada</h4>
+                                <span class="text-agro-700 font-extrabold text-lg">R$ 49,90</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Material resistente com costura reforçada e fecho de segurança para passeios seguros com seu cão.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="pedirWhatsApp('Kit Coleira & Guia Reforçada', 'R$ 49,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="medicamentos">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1628771065518-0d82f1938462?auto=format&fit=crop&q=80&w=600" alt="Vitamina e Suplemento Animal" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Suplementos'">
+                            <span class="absolute top-3 left-3 bg-amber-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Medicamentos</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">Suplemento Vitamínico Pet 250ml</h4>
+                                <span class="text-agro-700 font-extrabold text-lg">R$ 42,00</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Polivitamínico indicado para recuperação física, fortalecimento imunológico e brilho da pelagem.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="pedirWhatsApp('Suplemento Vitamínico Pet 250ml', 'R$ 42,00')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 6 -->
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="vacinas">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600" alt="Vacinação Antirrábica e Múltipla" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Vacinas'">
+                            <span class="absolute top-3 left-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Vacinas & Cuidados</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">Aplicação de Vacina V10 / V8</h4>
+                                <span class="text-agro-700 font-extrabold text-lg">R$ 80,00</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Aplicação em clínica veterinária com emissão de carteirinha de vacinação e avaliação prévia.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="pedirWhatsApp('Aplicação de Vacina V10 / V8', 'R$ 80,00')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 flex flex-col justify-between" data-category="petiscos">
+                    <div>
+                        <div class="relative h-48 bg-slate-200 overflow-hidden">
+                            <img src="https://i0.statig.com.br/bancodeimagens/1i/1d/45/1i1d454e2uchjj9nrx7imv83e.jpg" alt="Vacinação Antirrábica e Múltipla" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/e2e8f0/475569?text=Vacinas'">
+                            <span class="absolute top-3 left-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">Vacinas & Cuidados</span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-900 text-lg">Cookie Premier cães adultos</h4>
+                                <span class="text-agro-700 font-extrabold text-lg"> R$ 29,90</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed mb-4">Carne bovina: O preferido da maioria dos cães, muito usado em bifinhos e biscoitos crocantes.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button onclick="pedirWhatsApp('Cookie Premier cães adultos', 'R$ 29,90')" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-emerald-600/20 transition-all text-sm">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Pedir pelo WhatsApp</span>
+                        </button>
+                    </div>
+                </div>               
+
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="py-16 bg-white border-t border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-agro-600 bg-agro-50 px-3 py-1 rounded-full">Nossa Localização</span>
+                    <h3 class="text-3xl font-bold text-slate-900">Visite nossa loja em Nhandeara - SP</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Estamos localizados no coração de Nhandeara, com fácil acesso e estacionamento. Venha nos fazer uma visita e conhecer nosso mix completo de produtos e atendimento veterinário especializado.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start space-x-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <div class="w-10 h-10 rounded-xl bg-agro-100 text-agro-700 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-map-pin"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Endereço Completo</h4>
+                                <p class="text-slate-600 text-xs mt-0.5">R. Dr. Fábio Barbosa de Lima, 285 - Centro, Nhandeara - SP, 15190-000</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                            <div class="w-10 h-10 rounded-xl bg-agro-100 text-agro-700 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Telefone / WhatsApp</h4>
+                                <p class="text-slate-600 text-xs mt-0.5">(17) 99749-1516</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4 bg-slate-50 p-4 rounded-2xl border border-slate-100" id="avaliacoes">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Avaliação Google (5.0 / 5)</h4>
+                                <p class="text-slate-600 text-xs mt-0.5">Baseado em avaliações de clientes satisfeitos com nosso atendimento veterinário e balcão.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="bg-slate-200 rounded-3xl overflow-hidden h-96 shadow-lg border border-slate-300 relative flex items-center justify-center">
+                        <!-- Simulated interactive map preview or Google Maps iframe link -->
+                        <div class="absolute inset-0 bg-slate-900/10 z-10 flex flex-col items-center justify-center p-6 text-center backdrop-blur-[2px]">
+                            <div class="w-16 h-16 rounded-full bg-agro-600 text-white flex items-center justify-center text-2xl shadow-xl mb-3 animate-bounce">
+                                <i class="fa-solid fa-location-arrow"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-lg bg-white/90 px-4 py-1.5 rounded-xl shadow mb-2">Agropecuária São João</h4>
+                            <p class="text-slate-800 text-xs font-semibold bg-white/90 px-3 py-1 rounded-xl shadow mb-4">R. Dr. Fábio Barbosa de Lima, 285 - Centro</p>
+                            <a href="https://maps.google.com/?q=R.+Dr.+Fábio+Barbosa+de+Lima,+285+-+Centro,+Nhandeara+-+SP" target="_blank" class="bg-slate-900 hover:bg-slate-800 text-white font-semibold px-6 py-3 rounded-xl shadow-md text-xs transition-all">
+                                <i class="fa-solid fa-compass mr-2"></i> Abrir Rotas no Google Maps
+                            </a>
+                        </div>
+                        <!-- Background map decoration -->
+                        <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1000" alt="Mapa" class="w-full h-full object-cover opacity-50">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-900 text-white pt-16 pb-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="space-y-4 md:col-span-2">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-agro-600 flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-paw"></i>
+                        </div>
+                        <h4 class="font-bold text-lg">Agropecuária São João</h4>
+                    </div>
+                    <p class="text-slate-400 text-xs sm:text-sm max-w-sm leading-relaxed">
+                        Sua parceira de confiança em Nhandeara - SP para saúde animal, produtos agropecuários, clínica veterinária e atendimento dedicado.
+                    </p>
+                    <div class="flex space-x-3 pt-2">
+                        <a href="https://wa.me/5517997491516?text=Olá,%20vim%20pelo%20site." target="_blank" class="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="w-10 h-10 rounded-xl bg-pink-600/20 text-pink-400 hover:bg-pink-600 hover:text-white flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="font-bold text-sm uppercase tracking-wider text-slate-300">Links Rápidos</h5>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><a href="#produtos" class="hover:text-emerald-400 transition-colors">Catálogo de Produtos</a></li>
+                        <li><a href="#servicos" class="hover:text-emerald-400 transition-colors">Serviços Veterinários</a></li>
+                        <li><a href="#sobre" class="hover:text-emerald-400 transition-colors">Localização e Rotas</a></li>
+                        <li><a href="#avaliacoes" class="hover:text-emerald-400 transition-colors">Avaliações dos Clientes</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h5 class="font-bold text-sm uppercase tracking-wider text-slate-300">Contato & Horário</h5>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><i class="fa-solid fa-phone mr-2 text-emerald-400"></i> (17) 99749-1516</li>
+                        <li><i class="fa-solid fa-clock mr-2 text-emerald-400"></i> Seg à Sex · 07:30 às 18:30</li></i>Sab · 07:30 às 12:00</li>
+                        
+                        <li><i class="fa-solid fa-location-dot mr-2 text-emerald-400"></i> Centro, Nhandeara - SP</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+                <p>&copy; 2026 Agropecuária São João. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp & Instagram Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <a href="https://instagram.com/agropecuaria.sao.joao" target="_blank" rel="noopener noreferrer" class="w-14 h-14 rounded-full bg-gradient-to-tr from-amber-500 via-rose-600 to-purple-600 text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform group relative" aria-label="Instagram">
+        <i class="fa-brands fa-instagram text-2xl"></i>
+           <span class="absolute right-16 bg-slate-900 text-white text-xs px-3 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none font-medium">Instagram</span>
+        </a>
+    <a href="https://wa.me/5517997491516?text=Olá,%20vim%20pelo%20site%20e%20gostaria%20de%20mais%20informações." target="_blank" rel="noopener noreferrer" class="w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform group relative" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+           <span class="absolute right-16 bg-slate-900 text-white text-xs px-3 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none font-medium">Fale conosco</span>
+    </a>
+</div>
+
+    <script>
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // WhatsApp Order Formatter Function
+        function pedirWhatsApp(produto, preco) {
+            const numeroWhatsApp = "5517997491516";
+            const mensagem = `Olá! Gostaria de pedir o produto *${produto}* (${preco}) visto no site da Agropecuária São João. Como procedemos com a entrega/retirada?`;
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // Product Category Filter Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active classes
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-agro-600', 'text-white');
+                    b.classList.add('bg-white', 'text-slate-700');
+                });
+                // Add active to clicked
+                btn.classList.remove('bg-white', 'text-slate-700');
+                btn.classList.add('bg-agro-600', 'text-white');
+
+                const filter = btn.getAttribute('data-filter');
+
+                productCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

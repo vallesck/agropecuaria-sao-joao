@@ -72,7 +72,7 @@ const DEFAULT_PRODUCTS = [
 function seedDB() {
   const now = new Date().toISOString();
   return {
-    settings: { passwordHash: null },
+    settings: { passwordHash: null, sessionSecret: crypto.randomBytes(32).toString("hex") },
     categories: structuredClone(DEFAULT_CATEGORIES),
     products: DEFAULT_PRODUCTS.map((p, i) => ({
       id: crypto.randomUUID(),
@@ -92,7 +92,12 @@ async function listDataBlobs() {
   return blobs.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt));
 }
 
+const NO_STORAGE_MESSAGE =
+  "Armazenamento não conectado. Na Vercel, abra o projeto → Storage → Create Database → Blob, " +
+  "conecte ao projeto e faça um novo deploy (veja o LEIA-ME.md).";
+
 async function getDB() {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) throw new Error(NO_STORAGE_MESSAGE);
   const blobs = await listDataBlobs();
   if (!blobs.length) {
     const db = seedDB();
@@ -101,7 +106,13 @@ async function getDB() {
   }
   const res = await fetch(blobs[0].url, { cache: "no-store" });
   if (!res.ok) throw new Error("Falha ao ler os dados do site (" + res.status + ").");
-  return res.json();
+  const db = await res.json();
+  // Bancos criados antes da chave de sessao propria: gera e grava uma.
+  if (!db.settings.sessionSecret) {
+    db.settings.sessionSecret = crypto.randomBytes(32).toString("hex");
+    await saveDB(db);
+  }
+  return db;
 }
 
 async function saveDB(db) {
@@ -132,13 +143,22 @@ function hashPassword(password) {
   return salt + ":" + hash;
 }
 
+// Senha usada ate o admin definir a propria na aba "Senha" do painel.
+// Pode ser trocada pela variavel de ambiente ADMIN_PASSWORD.
+const DEFAULT_PASSWORD = "admin123";
+
+function initialPassword() {
+  return process.env.ADMIN_PASSWORD || DEFAULT_PASSWORD;
+}
+
+function usingInitialPassword(db) {
+  return !(db.settings && db.settings.passwordHash);
+}
+
 function checkPassword(db, password) {
   if (typeof password !== "string" || !password) return false;
   const stored = db.settings && db.settings.passwordHash;
-  if (!stored) {
-    const initial = process.env.ADMIN_PASSWORD || "";
-    return !!initial && safeEqual(password, initial);
-  }
+  if (!stored) return safeEqual(password, initialPassword());
   const [salt, hash] = stored.split(":");
   return safeEqual(crypto.scryptSync(password, salt, 64).toString("hex"), hash);
 }
@@ -151,8 +171,8 @@ function safeEqual(a, b) {
 
 // A assinatura inclui a senha atual: trocar a senha derruba todas as sessoes.
 function signingKey(db) {
-  const pw = (db.settings && db.settings.passwordHash) || "env:" + (process.env.ADMIN_PASSWORD || "");
-  return (process.env.SESSION_SECRET || "") + "|" + pw;
+  const pw = (db.settings && db.settings.passwordHash) || "initial:" + initialPassword();
+  return (process.env.SESSION_SECRET || db.settings.sessionSecret || "") + "|" + pw;
 }
 
 const SESSION_DAYS = 30;
@@ -242,6 +262,7 @@ module.exports = {
   deleteImage,
   hashPassword,
   checkPassword,
+  usingInitialPassword,
   createToken,
   isAdmin,
   handler,

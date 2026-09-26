@@ -87,6 +87,11 @@
         <main class="max-w-6xl mx-auto px-4 py-6">
             <!-- Produtos -->
             <section id="tab-products" class="space-y-5">
+                <div id="password-warning" class="hidden bg-amber-50 border border-amber-200 text-amber-900 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-xl text-amber-600"></i>
+                    <p class="text-sm flex-1">Você ainda está usando a <strong>senha inicial</strong> do painel. Troque por uma senha sua para ninguém mais conseguir entrar.</p>
+                    <button onclick="document.querySelector('[data-tab=account]').click()" class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 py-2 rounded-xl text-sm whitespace-nowrap">Trocar senha</button>
+                </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="stats"></div>
 
                 <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col md:flex-row gap-3 md:items-center">
@@ -362,6 +367,7 @@
                 const data = await api('/api/data');
                 state.categories = data.categories;
                 state.products = data.products;
+                $('password-warning').classList.toggle('hidden', !data.initialPassword);
                 renderCategoryOptions();
                 renderProducts();
             } catch (err) {
@@ -718,6 +724,7 @@
                 const { token } = await api('/api/password', { method: 'POST', body: { current: $('pw-current').value, next: $('pw-next').value } });
                 setToken(token);
                 e.target.reset();
+                $('password-warning').classList.add('hidden');
                 toast('Senha alterada.');
             } catch (err) {
                 toast(err.message, 'error');

@@ -1,4 +1,4 @@
-const { requireAdmin, handler } = require("./_lib/store");
+const { requireAdmin, usingInitialPassword, handler } = require("./_lib/store");
 
 // Tudo que o painel precisa, incluindo produtos ocultos.
 module.exports = handler({
@@ -8,6 +8,7 @@ module.exports = handler({
     res.status(200).json({
       categories: db.categories,
       products: [...db.products].sort((a, b) => a.order - b.order),
+      initialPassword: usingInitialPassword(db),
     });
   },
 });
